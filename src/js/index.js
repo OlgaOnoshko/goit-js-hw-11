@@ -28,11 +28,13 @@ function onSearch(evt) {
         .then(({ hits, totalHits }) => {
             if (hits.length === 0) {
                 Notify.failure("Sorry, there are no images matching your search query. Please try again.")
+                refs.loadMoreBtn.classList.add('is-hidden');
                 return;
             }
             if (hits.length < 40) {
                 Notify.failure("We're sorry, but you've reached the end of search results.")
                 addPicturesMarkUp(hits);
+                refs.loadMoreBtn.classList.add('is-hidden');
                 return;
             }
             if (hits.length !== 0) {
