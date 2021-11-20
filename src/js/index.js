@@ -26,19 +26,24 @@ function onSearch(evt) {
     fetchPicturesService.pageReset();
     fetchPicturesService.fetchPictures()
         .then(({ hits, totalHits }) => {
+            if (fetchPicturesService.query === '' || fetchPicturesService.query === ' ') {
+                Notify.failure("Please enter rhe query and try again.");
+                return;
+            }
             if (hits.length === 0) {
                 Notify.failure("Sorry, there are no images matching your search query. Please try again.")
                 refs.loadMoreBtn.classList.add('is-hidden');
                 return;
             }
             if (hits.length < 40) {
+                Notify.info(`Hooray! We found ${totalHits} images!`)
                 Notify.failure("We're sorry, but you've reached the end of search results.")
                 addPicturesMarkUp(hits);
                 refs.loadMoreBtn.classList.add('is-hidden');
                 return;
             }
             if (hits.length !== 0) {
-                Notify.info(`Hooray! We found ${totalHits} images!`)
+                Notify.info(`Hooray! We found ${totalHits} images!`);
             }
             addPicturesMarkUp(hits);
             refs.loadMoreBtn.classList.remove('is-hidden');
