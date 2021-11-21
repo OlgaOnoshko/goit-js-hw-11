@@ -22,11 +22,11 @@ function onSearch(evt) {
     let picturesNumber = 0;
 
     removePicturesMarkUp();
-    fetchPicturesService.query = evt.currentTarget.elements.searchQuery.value;
+    fetchPicturesService.query = evt.currentTarget.elements.searchQuery.value.trim();
     fetchPicturesService.pageReset();
     fetchPicturesService.fetchPictures()
         .then(({ hits, totalHits }) => {
-            if (fetchPicturesService.query === '' || fetchPicturesService.query === ' ') {
+            if (fetchPicturesService.query === '') {
                 Notify.failure("Please enter rhe query and try again.");
                 return;
             }
